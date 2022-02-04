@@ -26,7 +26,11 @@ public class ShipController : MonoBehaviour
     {
         rigidbody2d.rotation += horizontal * -1;
         lookDirection = transform.right;
-        Debug.Log(lookDirection);
         rigidbody2d.position += lookDirection * vertical * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
     }
 }
