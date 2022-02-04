@@ -20,7 +20,7 @@ public class AsteroidController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 position = transform.position;
+        Vector2 position = transform.position;
         if (position.x > 6.7f)
         {
             position.x = -6.7f;
