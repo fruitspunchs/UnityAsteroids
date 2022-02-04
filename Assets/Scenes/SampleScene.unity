@@ -259,6 +259,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5880776199339679304, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880776199339679305, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 3978790171055716375, guid: 8ac44d357f6ee1c4da6ade01e4c3ba59, type: 3}
     - target: {fileID: 5880776199339679307, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
       propertyPath: m_RootOrder
       value: 1

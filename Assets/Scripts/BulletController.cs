@@ -2,19 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipController : MonoBehaviour
+public class BulletController : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
-    float horizontal;
-    Vector2 lookDirection = new Vector2(1, 0);
-    float acceleration = 1.0f;
-    float rotationSpeed = 2.0f;
-    Vector2 velocity = new Vector2();
-
-    public GameObject bullet;
+    Vector2 lookDirection = new Vector2();
+    float speed = 5.0f;
+    float bulletLifespan = 1.0f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
@@ -22,8 +18,6 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-
         Vector2 position = transform.position;
         if (position.x > 6.7f)
         {
@@ -41,34 +35,27 @@ public class ShipController : MonoBehaviour
         {
             position.y = 5.0f;
         }
-
         transform.position = position;
 
-
-        if (Input.GetKey(KeyCode.W))
+        bulletLifespan -= Time.deltaTime;
+        if (bulletLifespan < 0)
         {
-            velocity += lookDirection * acceleration * Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            GameObject firedBullet = Instantiate(bullet, transform.position + transform.right * 0.5f, Quaternion.identity);
-            BulletController controller = firedBullet.GetComponent<BulletController>();
-            controller.setDirection(lookDirection);
+            Destroy(gameObject);
         }
     }
-
     void FixedUpdate()
     {
-        rigidbody2d.rotation += horizontal * -1 * rotationSpeed;
-        lookDirection = transform.right;
-
         Vector2 position = rigidbody2d.position;
 
-        position.x += velocity.x * Time.deltaTime;
-        position.y += velocity.y * Time.deltaTime;
+        position.x += lookDirection.x * speed * Time.deltaTime;
+        position.y += lookDirection.y * speed * Time.deltaTime;
 
         rigidbody2d.MovePosition(position);
+    }
+
+    public void setDirection(Vector2 direction)
+    {
+        this.lookDirection = direction;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
