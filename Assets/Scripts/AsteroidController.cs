@@ -8,9 +8,22 @@ public class AsteroidController : MonoBehaviour
     public float speed = 0.5f;
     Rigidbody2D rigidbody2d;
 
+    public GameObject smallAsteroid0;
+    public GameObject smallAsteroid1;
+    public GameObject smallAsteroid2;
+    GameObject[] smallAsteroids;
+
+    public GameObject medAsteroid0;
+    public GameObject medAsteroid1;
+    public GameObject medAsteroid2;
+    GameObject[] medAsteroids;
+
     // Start is called before the first frame update
     void Awake()
     {
+        smallAsteroids = new GameObject[] { smallAsteroid0, smallAsteroid1, smallAsteroid2 };
+        medAsteroids = new GameObject[] { medAsteroid0, medAsteroid1, medAsteroid2 };
+
         lookDirection.x = Random.value;
         lookDirection.y = Random.value;
         lookDirection.Normalize();
@@ -54,5 +67,15 @@ public class AsteroidController : MonoBehaviour
     public virtual void DestroyAsteroid()
     {
 
+    }
+
+    protected GameObject getRandomMedAsteroid()
+    {
+        return medAsteroids[Random.Range(0, medAsteroids.Length)];
+    }
+
+    protected GameObject getRandomSmallAsteroid()
+    {
+        return smallAsteroids[Random.Range(0, smallAsteroids.Length)];
     }
 }
