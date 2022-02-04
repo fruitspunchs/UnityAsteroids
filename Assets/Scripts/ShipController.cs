@@ -21,6 +21,26 @@ public class ShipController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+
+        Vector3 position = transform.position;
+        if (position.x > 6.7f)
+        {
+            position.x = -6.7f;
+        }
+        else if (position.x < -6.7f)
+        {
+            position.x = 6.7f;
+        }
+        else if (position.y > 5.0f)
+        {
+            position.y = -5.0f;
+        }
+        else if (position.y < -5.0f)
+        {
+            position.y = 5.0f;
+        }
+
+        transform.position = position;
     }
 
     void FixedUpdate()

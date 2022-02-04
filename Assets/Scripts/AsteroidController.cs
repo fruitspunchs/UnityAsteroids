@@ -19,7 +19,25 @@ public class AsteroidController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 position = transform.position;
+        if (position.x > 6.7f)
+        {
+            position.x = -6.7f;
+        }
+        else if (position.x < -6.7f)
+        {
+            position.x = 6.7f;
+        }
+        else if (position.y > 5.0f)
+        {
+            position.y = -5.0f;
+        }
+        else if (position.y < -5.0f)
+        {
+            position.y = 5.0f;
+        }
 
+        transform.position = position;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
