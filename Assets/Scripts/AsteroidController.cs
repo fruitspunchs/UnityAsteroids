@@ -13,6 +13,7 @@ public class AsteroidController : MonoBehaviour
     {
         lookDirection.x = Random.value;
         lookDirection.y = Random.value;
+        lookDirection.Normalize();
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
