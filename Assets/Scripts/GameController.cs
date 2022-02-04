@@ -10,17 +10,21 @@ public class GameController : MonoBehaviour
     SpawnRect spawnBottom = new SpawnRect(-6.0f, -6.0f, -5.0f, -4.0f);
 
     public GameObject largeAsteroid0;
+    public GameObject largeAsteroid1;
+    public GameObject largeAsteroid2;
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnRect[] spawnAreas = { spawnRight, spawnLeft, spawnTop, spawnBottom };
+        GameObject[] asteroidTypes = { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
 
         for (int i = 0; i < 5; i++)
         {
             SpawnRect spawnArea = spawnAreas[Random.Range(0, spawnAreas.Length)];
+            GameObject asteroidType = asteroidTypes[Random.Range(0, asteroidTypes.Length)];
 
-            Instantiate(largeAsteroid0, spawnArea.getRandomPosition(), Quaternion.identity);
+            Instantiate(asteroidType, spawnArea.getRandomPosition(), Quaternion.identity);
         }
     }
 
