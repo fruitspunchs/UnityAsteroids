@@ -8,6 +8,7 @@ public class ShipController : MonoBehaviour
     float horizontal;
     float vertical;
     Vector2 lookDirection = new Vector2(1, 0);
+    public float speed = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class ShipController : MonoBehaviour
     {
         rigidbody2d.rotation += horizontal * -1;
         lookDirection = transform.right;
-        rigidbody2d.position += lookDirection * vertical * Time.deltaTime;
+        rigidbody2d.position += lookDirection * vertical * speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
