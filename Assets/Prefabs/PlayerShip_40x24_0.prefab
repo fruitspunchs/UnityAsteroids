@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5880776199339679305}
   - component: {fileID: 5880776199339679310}
   - component: {fileID: 5880776199339679311}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerShip_40x24_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0669f6b760b9d684fba966b5957740b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
 --- !u!50 &5880776199339679310
 Rigidbody2D:
   serializedVersion: 4
