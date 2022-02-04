@@ -6,9 +6,10 @@ public class ShipController : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
     float horizontal;
-    float vertical;
     Vector2 lookDirection = new Vector2(1, 0);
-    public float speed = 1.0f;
+    float acceleration = 1.0f;
+    float rotationSpeed = 2.0f;
+    Vector2 velocity = new Vector2();
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,6 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
 
         Vector3 position = transform.position;
         if (position.x > 6.7f)
@@ -41,13 +41,27 @@ public class ShipController : MonoBehaviour
         }
 
         transform.position = position;
+
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            velocity += lookDirection * acceleration * Time.deltaTime;
+        }
+
+        //speed = Mathf.Clamp(speed, 0.0f, maxSpeed);
     }
 
     void FixedUpdate()
     {
-        rigidbody2d.rotation += horizontal * -1;
+        rigidbody2d.rotation += horizontal * -1 * rotationSpeed;
         lookDirection = transform.right;
-        rigidbody2d.position += lookDirection * vertical * speed * Time.deltaTime;
+
+        Vector2 position = rigidbody2d.position;
+
+        position.x += velocity.x * Time.deltaTime;
+        position.y += velocity.y * Time.deltaTime;
+
+        rigidbody2d.MovePosition(position);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

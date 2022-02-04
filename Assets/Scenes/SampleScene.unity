@@ -307,5 +307,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerShip_40x24_0
       objectReference: {fileID: 0}
+    - target: {fileID: 5880776199339679310, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880776199339679310, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880776199339679310, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880776199339679310, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 952bb82383acc21478e873fd465bbf6f, type: 3}
