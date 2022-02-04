@@ -5,7 +5,7 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour
 {
     Vector2 lookDirection;
-    public float speed = 1.0f;
+    public float speed = 0.5f;
     Rigidbody2D rigidbody2d;
 
     // Start is called before the first frame update
@@ -24,11 +24,16 @@ public class AsteroidController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        DestroyAsteroid();
     }
 
     void FixedUpdate()
     {
         rigidbody2d.position += lookDirection * speed * Time.deltaTime;
+    }
+
+    public virtual void DestroyAsteroid()
+    {
+
     }
 }
