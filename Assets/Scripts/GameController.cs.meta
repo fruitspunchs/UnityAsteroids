@@ -3,7 +3,11 @@ guid: 47252fbd40d11f74686e4113e9e2b88e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - largeAsteroid0: {instanceID: 0}
+  - largeAsteroid1: {instanceID: 0}
+  - largeAsteroid2: {instanceID: 0}
+  - playerShip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

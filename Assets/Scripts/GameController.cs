@@ -13,6 +13,13 @@ public class GameController : MonoBehaviour
     public GameObject largeAsteroid1;
     public GameObject largeAsteroid2;
 
+    public GameObject playerShip;
+    GameObject currentShip;
+
+    float respawnTimer = 2f;
+    float respawnDuration = 2f;
+    bool respawnStart = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +38,25 @@ public class GameController : MonoBehaviour
             spawnAreaIndex++;
             if (spawnAreaIndex >= spawnAreas.Length - 1) spawnAreaIndex = 0;
         }
+
+        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
+        respawnTimer -= Time.deltaTime;
 
+        if (currentShip == null && !respawnStart)
+        {
+            respawnTimer = respawnDuration;
+            respawnStart = true;
+        }
+        else if (currentShip == null && respawnTimer < 0)
+        {
+            currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+            respawnStart = false;
+        }
     }
 }
 
