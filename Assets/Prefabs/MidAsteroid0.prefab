@@ -160,3 +160,4 @@ MonoBehaviour:
   medAsteroid0: {fileID: 0}
   medAsteroid1: {fileID: 0}
   medAsteroid2: {fileID: 0}
+  points: 50

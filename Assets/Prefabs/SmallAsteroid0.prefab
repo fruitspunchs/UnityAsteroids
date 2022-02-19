@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 53819223250369202}
   - component: {fileID: 53819223250369203}
   - component: {fileID: 53819223250369200}
-  - component: {fileID: -2752184469211276672}
   m_Layer: 9
   m_Name: SmallAsteroid0
   m_TagString: Untagged
@@ -105,6 +104,7 @@ MonoBehaviour:
   medAsteroid0: {fileID: 0}
   medAsteroid1: {fileID: 0}
   medAsteroid2: {fileID: 0}
+  points: 100
 --- !u!60 &53819223250369203
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -162,22 +162,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-2752184469211276672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53819223250369201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e872b1e2521bbb48ae4096d40800aa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.5
-  smallAsteroid0: {fileID: 0}
-  smallAsteroid1: {fileID: 0}
-  smallAsteroid2: {fileID: 0}
-  medAsteroid0: {fileID: 0}
-  medAsteroid1: {fileID: 0}
-  medAsteroid2: {fileID: 0}

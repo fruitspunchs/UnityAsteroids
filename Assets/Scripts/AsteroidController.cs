@@ -18,9 +18,15 @@ public class AsteroidController : MonoBehaviour
     public GameObject medAsteroid2;
     GameObject[] medAsteroids;
 
+    public int points = 0;
+    protected GameController gameController;
+
     // Start is called before the first frame update
     void Awake()
     {
+        GameObject game = GameObject.Find("Game");
+        gameController = game.GetComponent<GameController>();
+
         smallAsteroids = new GameObject[] { smallAsteroid0, smallAsteroid1, smallAsteroid2 };
         medAsteroids = new GameObject[] { medAsteroid0, medAsteroid1, medAsteroid2 };
 

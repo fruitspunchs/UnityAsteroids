@@ -7,5 +7,6 @@ public class SmallAsteroidController : AsteroidController
     public override void DestroyAsteroid()
     {
         Destroy(gameObject);
+        gameController.score += points;
     }
 }

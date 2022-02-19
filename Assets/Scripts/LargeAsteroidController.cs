@@ -11,5 +11,6 @@ public class LargeAsteroidController : AsteroidController
             Instantiate(getRandomMedAsteroid(), transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
+        gameController.score += points;
     }
 }
