@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8199635079932340772}
   - component: {fileID: 8199635079932340774}
   - component: {fileID: 8199635079932340773}
+  - component: {fileID: 8959498077894043488}
   m_Layer: 5
   m_Name: ScoreDigit
   m_TagString: Untagged
@@ -75,3 +76,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8959498077894043488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8199635079932340771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe812fea753cc4f9bcd840c4ef5565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  digit0: {fileID: -3128505127995441210, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit1: {fileID: 5838231519558300266, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit2: {fileID: -2439129543466542751, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit3: {fileID: 6100810756977720341, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit4: {fileID: -5230028678802907624, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit5: {fileID: 3933699152266845127, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit6: {fileID: -9191497065186198245, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit7: {fileID: -2976908027093776847, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit8: {fileID: 2339974929082035297, guid: 485256c15293d72488f5339dcb600540, type: 3}
+  digit9: {fileID: 6790940385434486285, guid: 485256c15293d72488f5339dcb600540, type: 3}

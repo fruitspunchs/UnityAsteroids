@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     public GameObject playerShip;
     GameObject currentShip;
 
+    public int score = 0;
+    public string scoreString = "";
+
     float respawnTimer = 2f;
     float respawnDuration = 2f;
     bool respawnStart = false;
@@ -57,6 +60,9 @@ public class GameController : MonoBehaviour
             currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
             respawnStart = false;
         }
+
+        score += 1;
+        scoreString = score.ToString();
     }
 }
 
