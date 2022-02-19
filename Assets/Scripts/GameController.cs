@@ -61,8 +61,8 @@ public class GameController : MonoBehaviour
             respawnStart = false;
         }
 
-        score += 1;
-        scoreString = score.ToString();
+        if (score > 0) scoreString = score.ToString();
+        else scoreString = "00";
     }
 }
 
