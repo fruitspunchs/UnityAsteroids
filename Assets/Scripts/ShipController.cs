@@ -12,11 +12,14 @@ public class ShipController : MonoBehaviour
     Vector2 velocity = new Vector2();
 
     public GameObject bullet;
+    GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        GameObject game = GameObject.Find("Game");
+        gameController = game.GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -74,5 +77,6 @@ public class ShipController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
+        gameController.lives--;
     }
 }

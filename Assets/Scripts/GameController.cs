@@ -52,19 +52,24 @@ public class GameController : MonoBehaviour
     {
         respawnTimer -= Time.deltaTime;
 
-        if (currentShip == null && !respawnStart)
+        if (lives >= 1)
         {
-            respawnTimer = respawnDuration;
-            respawnStart = true;
-        }
-        else if (currentShip == null && respawnTimer < 0)
-        {
-            currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
-            respawnStart = false;
+            if (currentShip == null && !respawnStart)
+            {
+                respawnTimer = respawnDuration;
+                respawnStart = true;
+            }
+            else if (currentShip == null && respawnTimer < 0)
+            {
+                currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+                respawnStart = false;
+            }
         }
 
         if (score > 0) scoreString = score.ToString();
         else scoreString = "00";
+
+        if (lives > 5) lives = 5;
     }
 }
 
