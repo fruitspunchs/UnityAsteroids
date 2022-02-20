@@ -20,6 +20,10 @@ public class GameController : MonoBehaviour
     public string scoreString = "";
 
     public int lives = 3;
+    public const int MAX_LIVES = 5;
+
+    public const int NEW_LIFE_SCORE_TRESHOLD = 10000;
+    int newLifeScore = 0;
 
     float respawnTimer = 2f;
     float respawnDuration = 2f;
@@ -68,8 +72,20 @@ public class GameController : MonoBehaviour
 
         if (score > 0) scoreString = score.ToString();
         else scoreString = "00";
+    }
 
-        if (lives > 5) lives = 5;
+    public void AddScore(int score)
+    {
+        this.score += score;
+
+        newLifeScore += score;
+        if (newLifeScore >= NEW_LIFE_SCORE_TRESHOLD)
+        {
+            lives++;
+            newLifeScore -= NEW_LIFE_SCORE_TRESHOLD;
+        }
+
+        if (lives > MAX_LIVES) lives = MAX_LIVES;
     }
 }
 
