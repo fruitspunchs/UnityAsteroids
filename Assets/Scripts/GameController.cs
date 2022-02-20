@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
     public int score = 0;
     public string scoreString = "";
 
+    public int lives = 3;
+
     float respawnTimer = 2f;
     float respawnDuration = 2f;
     bool respawnStart = false;
