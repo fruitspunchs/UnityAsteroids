@@ -34,8 +34,8 @@ public class GameController : MonoBehaviour
     public int initialAsteroidCount = 4;
     int round = 0;
 
-    GameObject startScreen;
-    GameObject hud;
+    GameObject startHud;
+    GameObject gameHud;
 
     enum GameState
     {
@@ -49,8 +49,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hud = GameObject.Find("HUD");
-        startScreen = GameObject.Find("StartScreen");
+        gameHud = GameObject.Find("HUD");
+        startHud = GameObject.Find("StartScreen");
 
         spawnAreas = new SpawnRect[] { spawnRight, spawnLeft, spawnTop, spawnBottom };
         asteroidTypes = new GameObject[] { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
@@ -66,6 +66,9 @@ public class GameController : MonoBehaviour
 
         switch (gameState)
         {
+            case GameState.StartScreen:
+                CheckPressStart();
+                break;
             case GameState.GameScreen:
                 CheckDead();
                 CheckWin();
@@ -77,9 +80,13 @@ public class GameController : MonoBehaviour
     {
         gameState = GameState.StartScreen;
 
-        for (int i = 0; i < hud.transform.childCount; i++)
+        for (int i = 0; i < gameHud.transform.childCount; i++)
         {
-            hud.transform.GetChild(i).gameObject.SetActive(false);
+            gameHud.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        for (int i = 0; i < startHud.transform.childCount; i++)
+        {
+            startHud.transform.GetChild(i).gameObject.SetActive(true);
         }
 
         SpawnAsteroids(initialAsteroidCount);
@@ -87,7 +94,41 @@ public class GameController : MonoBehaviour
 
     void ShowGameScreen()
     {
+        ClearEnemies();
+
+        gameState = GameState.GameScreen;
+
+        for (int i = 0; i < gameHud.transform.childCount; i++)
+        {
+            gameHud.transform.GetChild(i).gameObject.SetActive(true);
+        }
+        for (int i = 0; i < startHud.transform.childCount; i++)
+        {
+            startHud.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
         currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+        NextRound();
+    }
+
+    void CheckPressStart()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space))
+        {
+            ShowGameScreen();
+        }
+    }
+
+    void ClearEnemies()
+    {
+        GameObject[] gameObjects;
+        gameObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        int count = gameObjects.Length;
+
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            Destroy(gameObjects[i]);
+        }
     }
 
     void NextRound()
