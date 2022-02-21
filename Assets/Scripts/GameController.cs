@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour
     SpawnRect spawnTop = new SpawnRect(-6.0f, 6.0f, 4.0f, 5.0f);
     SpawnRect spawnBottom = new SpawnRect(-6.0f, 6.0f, -5.0f, -4.0f);
 
+    SpawnRect[] spawnAreas;
+    GameObject[] asteroidTypes;
+
     public GameObject largeAsteroid0;
     public GameObject largeAsteroid1;
     public GameObject largeAsteroid2;
@@ -29,16 +32,28 @@ public class GameController : MonoBehaviour
     float respawnDuration = 2f;
     bool respawnStart = false;
 
+    public int initialAsteroidCount = 4;
+    int round = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        SpawnRect[] spawnAreas = { spawnRight, spawnLeft, spawnTop, spawnBottom };
-        GameObject[] asteroidTypes = { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
+        spawnAreas = new SpawnRect[] { spawnRight, spawnLeft, spawnTop, spawnBottom };
+        asteroidTypes = new GameObject[] { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
 
+        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+
+        NextRound();
+    }
+
+    void NextRound()
+    {
+        int asteroidCount = initialAsteroidCount + round;
         int spawnAreaIndex = Random.Range(0, spawnAreas.Length);
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < asteroidCount; i++)
         {
+
             SpawnRect spawnArea = spawnAreas[spawnAreaIndex];
             GameObject asteroidType = asteroidTypes[Random.Range(0, asteroidTypes.Length)];
 
@@ -48,7 +63,7 @@ public class GameController : MonoBehaviour
             if (spawnAreaIndex >= spawnAreas.Length - 1) spawnAreaIndex = 0;
         }
 
-        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+        round++;
     }
 
     // Update is called once per frame
