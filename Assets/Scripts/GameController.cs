@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     float respawnTimer = 2f;
     float respawnDuration = 2f;
     bool respawnStart = false;
+    bool waitingForNextRound = false;
 
     public int initialAsteroidCount = 4;
     int round = 0;
@@ -87,6 +88,8 @@ public class GameController : MonoBehaviour
 
         if (score > 0) scoreString = score.ToString();
         else scoreString = "00";
+
+        CheckWin();
     }
 
     public void AddScore(int score)
@@ -101,6 +104,27 @@ public class GameController : MonoBehaviour
         }
 
         if (lives > MAX_LIVES) lives = MAX_LIVES;
+    }
+
+    public void CheckWin()
+    {
+        GameObject[] gameObjects;
+        gameObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        int count = gameObjects.Length;
+
+        if (count <= 0 && lives > 0 && !waitingForNextRound)
+        {
+            waitingForNextRound = true;
+            StartCoroutine(startRoundAfterDelay(2));
+        }
+    }
+
+    IEnumerator startRoundAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        NextRound();
+        waitingForNextRound = false;
     }
 }
 
