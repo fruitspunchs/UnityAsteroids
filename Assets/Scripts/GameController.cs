@@ -34,23 +34,76 @@ public class GameController : MonoBehaviour
     public int initialAsteroidCount = 4;
     int round = 0;
 
+    GameObject startScreen;
+    GameObject hud;
+
+    enum GameState
+    {
+        StartScreen,
+        GameScreen,
+        GameOverScreen,
+    }
+
+    GameState gameState;
+
     // Start is called before the first frame update
     void Start()
     {
+        hud = GameObject.Find("HUD");
+        startScreen = GameObject.Find("StartScreen");
+
         spawnAreas = new SpawnRect[] { spawnRight, spawnLeft, spawnTop, spawnBottom };
         asteroidTypes = new GameObject[] { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
 
-        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+        ShowStartScreen();
+    }
 
-        NextRound();
+    // Update is called once per frame
+    void Update()
+    {
+        if (score > 0) scoreString = score.ToString();
+        else scoreString = "00";
+
+        switch (gameState)
+        {
+            case GameState.GameScreen:
+                CheckDead();
+                CheckWin();
+                break;
+        }
+    }
+
+    void ShowStartScreen()
+    {
+        gameState = GameState.StartScreen;
+
+        for (int i = 0; i < hud.transform.childCount; i++)
+        {
+            hud.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        SpawnAsteroids(initialAsteroidCount);
+    }
+
+    void ShowGameScreen()
+    {
+        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
     }
 
     void NextRound()
     {
         int asteroidCount = initialAsteroidCount + round;
+
+        SpawnAsteroids(asteroidCount);
+
+        round++;
+    }
+
+    void SpawnAsteroids(int count)
+    {
         int spawnAreaIndex = Random.Range(0, spawnAreas.Length);
 
-        for (int i = 0; i < asteroidCount; i++)
+        for (int i = 0; i < count; i++)
         {
 
             SpawnRect spawnArea = spawnAreas[spawnAreaIndex];
@@ -61,18 +114,6 @@ public class GameController : MonoBehaviour
             spawnAreaIndex++;
             if (spawnAreaIndex >= spawnAreas.Length - 1) spawnAreaIndex = 0;
         }
-
-        round++;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (score > 0) scoreString = score.ToString();
-        else scoreString = "00";
-
-        CheckDead();
-        CheckWin();
     }
 
     public void AddScore(int score)
