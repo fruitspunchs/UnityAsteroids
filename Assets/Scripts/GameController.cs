@@ -28,8 +28,6 @@ public class GameController : MonoBehaviour
     public const int NEW_LIFE_SCORE_TRESHOLD = 10000;
     int newLifeScore = 0;
 
-    float respawnTimer = 2f;
-    float respawnDuration = 2f;
     bool respawnStart = false;
     bool waitingForNextRound = false;
 
@@ -70,25 +68,10 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        respawnTimer -= Time.deltaTime;
-
-        if (lives >= 1)
-        {
-            if (currentShip == null && !respawnStart)
-            {
-                respawnTimer = respawnDuration;
-                respawnStart = true;
-            }
-            else if (currentShip == null && respawnTimer < 0)
-            {
-                currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
-                respawnStart = false;
-            }
-        }
-
         if (score > 0) scoreString = score.ToString();
         else scoreString = "00";
 
+        CheckDead();
         CheckWin();
     }
 
@@ -106,7 +89,7 @@ public class GameController : MonoBehaviour
         if (lives > MAX_LIVES) lives = MAX_LIVES;
     }
 
-    public void CheckWin()
+    void CheckWin()
     {
         GameObject[] gameObjects;
         gameObjects = GameObject.FindGameObjectsWithTag("Enemy");
@@ -125,6 +108,26 @@ public class GameController : MonoBehaviour
 
         NextRound();
         waitingForNextRound = false;
+    }
+
+    void CheckDead()
+    {
+        if (lives >= 1)
+        {
+            if (currentShip == null && !respawnStart)
+            {
+                respawnStart = true;
+                StartCoroutine(respawnShipAfterDelay(2));
+            }
+        }
+    }
+
+    IEnumerator respawnShipAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+        respawnStart = false;
     }
 }
 
