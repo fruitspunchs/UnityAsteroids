@@ -39,6 +39,10 @@ public class GameController : MonoBehaviour
 
     public GameObject explosionEffect;
 
+    public GameObject ufo;
+    float spawnUfoTimer = 0.0f;
+    const float SPAWN_UFO_INTERVAL = 35.0f;
+
     enum GameState
     {
         StartScreen,
@@ -138,7 +142,7 @@ public class GameController : MonoBehaviour
         gameObjects = GameObject.FindGameObjectsWithTag("Enemy");
         int count = gameObjects.Length;
 
-        for (int i = 0; i < gameObjects.Length; i++)
+        for (int i = 0; i < count; i++)
         {
             Destroy(gameObjects[i]);
         }
@@ -151,6 +155,8 @@ public class GameController : MonoBehaviour
         SpawnAsteroids(asteroidCount);
 
         round++;
+
+        spawnUfoTimer = 0.0f;
     }
 
     void SpawnAsteroids(int count)
@@ -190,10 +196,17 @@ public class GameController : MonoBehaviour
         gameObjects = GameObject.FindGameObjectsWithTag("Enemy");
         int count = gameObjects.Length;
 
+        spawnUfoTimer += Time.deltaTime;
+
         if (count <= 0 && lives > 0 && !waitingForNextRound)
         {
             waitingForNextRound = true;
             StartCoroutine(StartRoundAfterDelay(2));
+        }
+        else if (spawnUfoTimer >= SPAWN_UFO_INTERVAL)
+        {
+            SpawnUFO();
+            spawnUfoTimer = 0;
         }
     }
 
@@ -230,6 +243,18 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ShowGameScreen();
+    }
+
+    void SpawnUFO()
+    {
+        int random = Random.Range(0, 2);
+
+        float spawnX = random == 0 ? 6.6f : -6.6f;
+        float spawnY = Random.Range(-4.9f, 4.9f);
+        float xDirection = random == 0 ? -1.0f : 1.0f;
+
+        GameObject ufoInst = Instantiate(ufo, new Vector2(spawnX, spawnY), Quaternion.identity);
+        ufoInst.GetComponent<UFOController>().SetXDirection(xDirection);
     }
 
     public void playExplosion(Vector2 pos)

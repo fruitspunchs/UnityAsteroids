@@ -20,7 +20,7 @@ public class UFOController : MonoBehaviour
     {
     }
 
-    public void SetXDirection(int x)
+    public void SetXDirection(float x)
     {
         moveDirection = new Vector2(x, 0);
     }
