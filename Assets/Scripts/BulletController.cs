@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     Vector2 lookDirection = new Vector2();
     float speed = 5.0f;
-    float bulletLifespan = 2.0f;
+    float bulletLifespan = 1.5f;
 
     // Start is called before the first frame update
     void Awake()
