@@ -324,6 +324,7 @@ MonoBehaviour:
   scoreString: 
   lives: 3
   initialAsteroidCount: 4
+  explosionEffect: {fileID: 692651694040316776, guid: 92bb57c6dc370574ca3767e45b41448a, type: 3}
 --- !u!1 &232340556
 GameObject:
   m_ObjectHideFlags: 0

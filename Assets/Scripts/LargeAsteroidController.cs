@@ -12,5 +12,6 @@ public class LargeAsteroidController : AsteroidController
         }
         Destroy(gameObject);
         gameController.AddScore(points);
+        gameController.playExplosion(transform.position);
     }
 }

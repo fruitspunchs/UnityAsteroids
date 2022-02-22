@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour
     GameObject startHud;
     GameObject gameHud;
 
+    public GameObject explosionEffect;
+
     enum GameState
     {
         StartScreen,
@@ -228,6 +230,11 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ShowGameScreen();
+    }
+
+    public void playExplosion(Vector2 pos)
+    {
+        Instantiate(explosionEffect, pos, Quaternion.identity);
     }
 }
 

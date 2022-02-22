@@ -8,5 +8,6 @@ public class SmallAsteroidController : AsteroidController
     {
         Destroy(gameObject);
         gameController.AddScore(points);
+        gameController.playExplosion(transform.position);
     }
 }
