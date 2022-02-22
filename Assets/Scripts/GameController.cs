@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     enum GameState
     {
         StartScreen,
+        PreGameScreen,
         GameScreen,
         GameOverScreen,
     }
@@ -49,8 +50,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameHud = GameObject.Find("HUD");
-        startHud = GameObject.Find("StartScreen");
+        gameHud = GameObject.Find("GameHud");
+        startHud = GameObject.Find("StartHud");
 
         spawnAreas = new SpawnRect[] { spawnRight, spawnLeft, spawnTop, spawnBottom };
         asteroidTypes = new GameObject[] { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
@@ -92,11 +93,11 @@ public class GameController : MonoBehaviour
         SpawnAsteroids(initialAsteroidCount);
     }
 
-    void ShowGameScreen()
+    void ShowPreGameScreen()
     {
-        ClearEnemies();
+        gameState = GameState.PreGameScreen;
 
-        gameState = GameState.GameScreen;
+        ClearEnemies();
 
         for (int i = 0; i < gameHud.transform.childCount; i++)
         {
@@ -107,6 +108,16 @@ public class GameController : MonoBehaviour
             startHud.transform.GetChild(i).gameObject.SetActive(false);
         }
 
+        StartCoroutine(ShowGameScreenAfterDelay(2));
+    }
+
+    void ShowGameScreen()
+    {
+        gameState = GameState.GameScreen;
+
+        GameObject player1Text = GameObject.Find("Player1Text");
+        player1Text.SetActive(false);
+
         currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
         NextRound();
     }
@@ -115,7 +126,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space))
         {
-            ShowGameScreen();
+            ShowPreGameScreen();
         }
     }
 
@@ -180,11 +191,11 @@ public class GameController : MonoBehaviour
         if (count <= 0 && lives > 0 && !waitingForNextRound)
         {
             waitingForNextRound = true;
-            StartCoroutine(startRoundAfterDelay(2));
+            StartCoroutine(StartRoundAfterDelay(2));
         }
     }
 
-    IEnumerator startRoundAfterDelay(float time)
+    IEnumerator StartRoundAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
 
@@ -199,17 +210,24 @@ public class GameController : MonoBehaviour
             if (currentShip == null && !respawnStart)
             {
                 respawnStart = true;
-                StartCoroutine(respawnShipAfterDelay(2));
+                StartCoroutine(RespawnShipAfterDelay(2));
             }
         }
     }
 
-    IEnumerator respawnShipAfterDelay(float time)
+    IEnumerator RespawnShipAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
 
         currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
         respawnStart = false;
+    }
+
+    IEnumerator ShowGameScreenAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        ShowGameScreen();
     }
 }
 
