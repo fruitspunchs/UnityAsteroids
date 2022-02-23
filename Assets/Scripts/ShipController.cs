@@ -22,6 +22,8 @@ public class ShipController : MonoBehaviour
         GameObject game = GameObject.Find("Game");
         gameController = game.GetComponent<GameController>();
         animator = GetComponent<Animator>();
+
+        StartCoroutine(ShipSlowDown(0.5f));
     }
 
     // Update is called once per frame
@@ -85,5 +87,14 @@ public class ShipController : MonoBehaviour
     {
         Destroy(gameObject);
         gameController.lives--;
+    }
+
+    IEnumerator ShipSlowDown(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (!Input.GetKey(KeyCode.W)) velocity *= 0.95f;
+
+        StartCoroutine(ShipSlowDown(0.5f));
     }
 }
