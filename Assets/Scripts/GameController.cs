@@ -39,7 +39,9 @@ public class GameController : MonoBehaviour
 
     public GameObject explosionEffect;
 
-    public GameObject ufo;
+    public GameObject bigUfo;
+    public GameObject smallUfo;
+
     float spawnUfoTimer = 0.0f;
     public float spawnUfoInterval = 35.0f;
 
@@ -255,7 +257,10 @@ public class GameController : MonoBehaviour
         float spawnY = Random.Range(-4.9f, 4.9f);
         float xDirection = random == 0 ? -1.0f : 1.0f;
 
-        GameObject ufoInst = Instantiate(ufo, new Vector2(spawnX, spawnY), Quaternion.identity);
+        random = Random.Range(0, 2);
+        GameObject ufoType = random == 0 ? smallUfo : bigUfo;
+
+        GameObject ufoInst = Instantiate(ufoType, new Vector2(spawnX, spawnY), Quaternion.identity);
         ufoInst.GetComponent<UFOController>().SetXDirection(xDirection);
     }
 

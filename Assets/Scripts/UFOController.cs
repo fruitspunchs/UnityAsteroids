@@ -10,7 +10,7 @@ public class UFOController : MonoBehaviour
     public GameObject ufoBullet;
     float shootInterval = 0.5f;
     float shootTimer = 0.5f;
-    float errorMargin = 45.0f;
+    public float errorMargin = 45.0f;
     int points = 1000;
 
     GameController gameController;
