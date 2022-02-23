@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour
         GameObject player1Text = GameObject.Find("Player1Text");
         player1Text.SetActive(false);
 
-        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.Euler(0, 0, 90));
         NextRound();
     }
 
@@ -234,7 +234,7 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.identity);
+        currentShip = Instantiate(playerShip, new Vector2(), Quaternion.Euler(0, 0, 90));
         respawnStart = false;
     }
 

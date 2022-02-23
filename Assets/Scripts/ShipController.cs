@@ -51,6 +51,20 @@ public class ShipController : MonoBehaviour
 
         transform.position = position;
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            velocity = Vector2.zero;
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+            animator.SetBool("Thrust", false);
+
+            float x = Random.Range(-6.6f, 6.6f);
+            float y = Random.Range(-4.9f, 4.9f);
+
+            transform.position = new Vector2(x, y);
+
+            return;
+        }
+
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -64,7 +78,7 @@ public class ShipController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject firedBullet = Instantiate(bullet, transform.position + transform.right * 0.5f, Quaternion.identity);
+            GameObject firedBullet = Instantiate(bullet, transform.position + transform.right * 0.25f, Quaternion.identity);
             BulletController controller = firedBullet.GetComponent<BulletController>();
             controller.setDirection(lookDirection);
         }
