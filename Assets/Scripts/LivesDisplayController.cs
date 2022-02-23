@@ -13,6 +13,7 @@ public class LivesDisplayController : MonoBehaviour
     {
         GameObject game = GameObject.Find("Game");
         gameController = game.GetComponent<GameController>();
+        GetComponent<Image>().enabled = false;
     }
 
     // Update is called once per frame

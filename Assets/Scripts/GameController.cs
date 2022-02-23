@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
     public string scoreString = "";
 
     public int lives = 3;
-    public const int MAX_LIVES = 5;
+    public const int MAX_LIVES = 15;
 
     public const int NEW_LIFE_SCORE_TRESHOLD = 10000;
     int newLifeScore = 0;
@@ -48,7 +48,9 @@ public class GameController : MonoBehaviour
         StartScreen,
         PreGameScreen,
         GameScreen,
-        GameOverScreen,
+        PreGameOverScreen,
+        InputHighScoresScreen,
+        HighScoresScreen,
     }
 
     GameState gameState;
