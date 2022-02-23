@@ -11,10 +11,16 @@ public class UFOController : MonoBehaviour
     float shootInterval = 0.5f;
     float shootTimer = 0.5f;
     float errorMargin = 45.0f;
+    int points = 1000;
+
+    GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject game = GameObject.Find("Game");
+        gameController = game.GetComponent<GameController>();
+
         rigidbody2d = GetComponent<Rigidbody2D>();
         StartCoroutine(ChangeDirectionAfterDelay(Random.Range(1.0f, 3.0f)));
     }
@@ -83,5 +89,12 @@ public class UFOController : MonoBehaviour
         moveDirection.y = Random.Range(0, 2) == 0 ? -1 : 1;
 
         StartCoroutine(ChangeDirectionAfterDelay(Random.Range(1.0f, 3.0f)));
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+        gameController.AddScore(points);
+        gameController.playExplosion(transform.position);
     }
 }
