@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Displays one digit of the total score
 public class ScoreDigitController : MonoBehaviour
 {
     public int index = 0;
@@ -20,17 +21,19 @@ public class ScoreDigitController : MonoBehaviour
     public Sprite digit8;
     public Sprite digit9;
     Sprite[] digitSprites;
-    // Start is called before the first frame update
+
     void Start()
     {
         GameObject game = GameObject.Find("Game");
         gameController = game.GetComponent<GameController>();
+
+        //Set digits to choose from
         digitSprites = new Sprite[] { digit0, digit1, digit2, digit3, digit4, digit5, digit6, digit7, digit8, digit9 };
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Display score digit at index
         int flipIndex = gameController.scoreString.Length - 1 - index;
         if (flipIndex >= 0)
         {

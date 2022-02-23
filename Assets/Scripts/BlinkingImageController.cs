@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Controller for blinking text
 public class BlinkingImageController : MonoBehaviour
 {
-
     bool visible = true;
     const float blinkDuration = 1f;
     float blinkTimer = blinkDuration;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        //Show/Hide images every interval
         blinkTimer -= Time.deltaTime;
 
         if (blinkTimer <= 0)

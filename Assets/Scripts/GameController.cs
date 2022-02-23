@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Main game controller
 public class GameController : MonoBehaviour
 {
+    //Rectangle asteroid spawn areas
     SpawnRect spawnRight = new SpawnRect(5.0f, 6.0f, -5.0f, 5.0f);
     SpawnRect spawnLeft = new SpawnRect(-6.0f, -5.0f, -5.0f, 5.0f);
     SpawnRect spawnTop = new SpawnRect(-6.0f, 6.0f, 4.0f, 5.0f);
@@ -59,21 +61,22 @@ public class GameController : MonoBehaviour
 
     GameState gameState;
 
-    // Start is called before the first frame update
     void Start()
     {
+        //Get reference to gamestate UI parents
         gameHud = GameObject.Find("GameHud");
         startHud = GameObject.Find("StartHud");
 
+        //Set objects to choose from
         spawnAreas = new SpawnRect[] { spawnRight, spawnLeft, spawnTop, spawnBottom };
         asteroidTypes = new GameObject[] { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
 
         ShowStartScreen();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Convert score to string for score display
         if (score > 0) scoreString = score.ToString();
         else scoreString = "00";
 
@@ -89,17 +92,21 @@ public class GameController : MonoBehaviour
         }
     }
 
+
     void ShowStartScreen()
     {
         gameState = GameState.StartScreen;
 
+        //Clear enemies from previous game
         ClearEnemies();
 
+        //Reset game values
         score = 0;
         lives = startLives;
         newLifeScore = 0;
         round = 0;
 
+        //Show StartHud and hide GameHud
         for (int i = 0; i < gameHud.transform.childCount; i++)
         {
             gameHud.transform.GetChild(i).gameObject.SetActive(false);
@@ -109,6 +116,7 @@ public class GameController : MonoBehaviour
             startHud.transform.GetChild(i).gameObject.SetActive(true);
         }
 
+        //Spawn some asteroids
         SpawnAsteroids(initialAsteroidCount);
     }
 
@@ -116,8 +124,10 @@ public class GameController : MonoBehaviour
     {
         gameState = GameState.PreGameScreen;
 
+        //Clear asteroids from start screen
         ClearEnemies();
 
+        //Show GameHud and hide StartHud
         for (int i = 0; i < gameHud.transform.childCount; i++)
         {
             gameHud.transform.GetChild(i).gameObject.SetActive(true);
@@ -127,12 +137,15 @@ public class GameController : MonoBehaviour
             startHud.transform.GetChild(i).gameObject.SetActive(false);
         }
 
+        //Hide game over text
         GameObject gameOverText = GameObject.Find("GameOverText");
         SetTextVisibility(gameOverText, false);
 
+        //Start game after delay
         StartCoroutine(ShowGameScreenAfterDelay(2));
     }
 
+    //Show/Hide text
     void SetTextVisibility(GameObject gameObject, bool isVisible)
     {
         for (int i = 0; i < gameObject.transform.childCount; i++)
@@ -145,21 +158,27 @@ public class GameController : MonoBehaviour
     {
         gameState = GameState.GameScreen;
 
+        //Hide player 1 text
         GameObject player1Text = GameObject.Find("Player1Text");
-        player1Text.SetActive(false);
+        SetTextVisibility(player1Text, false);
 
+        //Spawn player ship
         currentShip = Instantiate(playerShip, new Vector2(), Quaternion.Euler(0, 0, 90));
+
+        //Start next round
         NextRound();
     }
 
     void CheckPressStart()
     {
+        //Check for input on start screen then start game
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Space))
         {
             ShowPreGameScreen();
         }
     }
 
+    //Clear all enemies
     void ClearEnemies()
     {
         GameObject[] gameObjects;
@@ -172,6 +191,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Start next round
     void NextRound()
     {
         int asteroidCount = initialAsteroidCount + round;
@@ -183,13 +203,13 @@ public class GameController : MonoBehaviour
         spawnUfoTimer = 0.0f;
     }
 
+    //Spawn asteroids evenly distributed in designated areas
     void SpawnAsteroids(int count)
     {
         int spawnAreaIndex = Random.Range(0, spawnAreas.Length);
 
         for (int i = 0; i < count; i++)
         {
-
             SpawnRect spawnArea = spawnAreas[spawnAreaIndex];
             GameObject asteroidType = asteroidTypes[Random.Range(0, asteroidTypes.Length)];
 
@@ -200,6 +220,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Add score and check if a new life is earned
     public void AddScore(int score)
     {
         this.score += score;
@@ -214,6 +235,7 @@ public class GameController : MonoBehaviour
         if (lives > MAX_LIVES) lives = MAX_LIVES;
     }
 
+    //Check if round is won and spawn ufos regularly if not
     void CheckWin()
     {
         GameObject[] gameObjects;
@@ -242,6 +264,7 @@ public class GameController : MonoBehaviour
         waitingForNextRound = false;
     }
 
+    //Check if player is dead and respawn or show game over
     void CheckDead()
     {
         if (lives >= 1)
@@ -283,27 +306,33 @@ public class GameController : MonoBehaviour
         ShowStartScreen();
     }
 
+    //Spawn a big or small ufo
     void SpawnUFO()
     {
         int random = Random.Range(0, 2);
 
+        //Spawn left or rightof the screen
         float spawnX = random == 0 ? 6.6f : -6.6f;
         float spawnY = Random.Range(-4.9f, 4.9f);
         float xDirection = random == 0 ? -1.0f : 1.0f;
 
+        //Randomly choose big or small ufo
         random = Random.Range(0, 2);
         GameObject ufoType = random == 0 ? smallUfo : bigUfo;
 
+        //Set ufo move direction
         GameObject ufoInst = Instantiate(ufoType, new Vector2(spawnX, spawnY), Quaternion.identity);
         ufoInst.GetComponent<UFOController>().SetXDirection(xDirection);
     }
 
+    //Play explosion effect
     public void playExplosion(Vector2 pos)
     {
         Instantiate(explosionEffect, pos, Quaternion.identity);
     }
 }
 
+//Class to define rectangle areas in coordinate space
 class SpawnRect
 {
     private float xMin;
@@ -319,6 +348,7 @@ class SpawnRect
         this.yMax = yMax;
     }
 
+    //Get random position in rectangle
     public Vector2 getRandomPosition()
     {
         float x = Random.Range(xMin, xMax);

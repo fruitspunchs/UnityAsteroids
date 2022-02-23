@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controller for large asteroid variant
 public class LargeAsteroidController : AsteroidController
 {
     public override void DestroyAsteroid()

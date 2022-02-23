@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Parent controller of all asteroid types
 public class AsteroidController : MonoBehaviour
 {
     Vector2 lookDirection;
@@ -21,24 +22,27 @@ public class AsteroidController : MonoBehaviour
     public int points = 0;
     protected GameController gameController;
 
-    // Start is called before the first frame update
     void Awake()
     {
+        //Get reference to main controller
         GameObject game = GameObject.Find("Game");
         gameController = game.GetComponent<GameController>();
 
+        //Set asteroids to choose from
         smallAsteroids = new GameObject[] { smallAsteroid0, smallAsteroid1, smallAsteroid2 };
         medAsteroids = new GameObject[] { medAsteroid0, medAsteroid1, medAsteroid2 };
 
+        //Randomize move direction
         lookDirection.x = Random.value;
         lookDirection.y = Random.value;
         lookDirection.Normalize();
+
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Wrap position around screen
         Vector2 position = transform.position;
         if (position.x > 6.7f)
         {
@@ -67,6 +71,7 @@ public class AsteroidController : MonoBehaviour
 
     void FixedUpdate()
     {
+        //Move object
         rigidbody2d.position += lookDirection * speed * Time.deltaTime;
     }
 

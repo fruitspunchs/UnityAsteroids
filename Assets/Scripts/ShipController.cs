@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
-    float horizontal;
+    float horizontalInput;
     Vector2 lookDirection = new Vector2(1, 0);
     float acceleration = 1.0f;
     float rotationSpeed = 2.0f;
@@ -15,7 +15,6 @@ public class ShipController : MonoBehaviour
     GameController gameController;
     Animator animator;
 
-    // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -23,14 +22,16 @@ public class ShipController : MonoBehaviour
         gameController = game.GetComponent<GameController>();
         animator = GetComponent<Animator>();
 
+        //Reduce ship velocity every few seconds
         StartCoroutine(ShipSlowDown(0.5f));
     }
 
-    // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
+        //Get left/right input
+        horizontalInput = Input.GetAxis("Horizontal");
 
+        //Wrap positiona round screen
         Vector2 position = transform.position;
         if (position.x > 6.7f)
         {
@@ -51,6 +52,7 @@ public class ShipController : MonoBehaviour
 
         transform.position = position;
 
+        //Hyperspace button
         if (Input.GetKeyDown(KeyCode.Space))
         {
             velocity = Vector2.zero;
@@ -65,7 +67,7 @@ public class ShipController : MonoBehaviour
             return;
         }
 
-
+        //Thrust button
         if (Input.GetKey(KeyCode.W))
         {
             velocity += lookDirection * acceleration * Time.deltaTime;
@@ -76,6 +78,7 @@ public class ShipController : MonoBehaviour
             animator.SetBool("Thrust", false);
         }
 
+        //Fire button
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             GameObject firedBullet = Instantiate(bullet, transform.position + transform.right * 0.25f, Quaternion.identity);
@@ -86,11 +89,13 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidbody2d.rotation += horizontal * -1 * rotationSpeed;
+        //Rotate ship
+        rigidbody2d.rotation += horizontalInput * -1 * rotationSpeed;
         lookDirection = transform.right;
 
         Vector2 position = rigidbody2d.position;
 
+        //Move ship
         position.x += velocity.x * Time.deltaTime;
         position.y += velocity.y * Time.deltaTime;
 
@@ -99,12 +104,14 @@ public class ShipController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Destroy ship and reduce lives on collision
         Destroy(gameObject);
         gameController.lives--;
     }
 
     IEnumerator ShipSlowDown(float time)
     {
+        //Slow down ship gradually
         yield return new WaitForSeconds(time);
 
         if (!Input.GetKey(KeyCode.W)) velocity *= 0.95f;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controller for mid asteroid variant
 public class MedAsteroidController : AsteroidController
 {
     public override void DestroyAsteroid()

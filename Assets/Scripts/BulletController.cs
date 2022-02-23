@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controller for player and ufo bullets
 public class BulletController : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
@@ -9,15 +10,14 @@ public class BulletController : MonoBehaviour
     float speed = 5.0f;
     float bulletLifespan = 1.5f;
 
-    // Start is called before the first frame update
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Wrap position around screen
         Vector2 position = transform.position;
         if (position.x > 6.7f)
         {
@@ -37,6 +37,7 @@ public class BulletController : MonoBehaviour
         }
         transform.position = position;
 
+        //Destroy bullet after duration
         bulletLifespan -= Time.deltaTime;
         if (bulletLifespan < 0)
         {
@@ -45,6 +46,7 @@ public class BulletController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //Move object
         Vector2 position = rigidbody2d.position;
 
         position.x += lookDirection.x * speed * Time.deltaTime;
@@ -55,6 +57,7 @@ public class BulletController : MonoBehaviour
 
     public void setDirection(Vector2 direction)
     {
+        //Set bullet direction
         direction.Normalize();
         this.lookDirection = direction;
     }
