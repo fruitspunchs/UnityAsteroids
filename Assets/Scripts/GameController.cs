@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
     public string scoreString = "";
 
     public int lives = 3;
+    public int startLives = 3;
     public const int MAX_LIVES = 15;
 
     public const int NEW_LIFE_SCORE_TRESHOLD = 10000;
@@ -91,6 +93,13 @@ public class GameController : MonoBehaviour
     {
         gameState = GameState.StartScreen;
 
+        ClearEnemies();
+
+        score = 0;
+        lives = startLives;
+        newLifeScore = 0;
+        round = 0;
+
         for (int i = 0; i < gameHud.transform.childCount; i++)
         {
             gameHud.transform.GetChild(i).gameObject.SetActive(false);
@@ -118,7 +127,18 @@ public class GameController : MonoBehaviour
             startHud.transform.GetChild(i).gameObject.SetActive(false);
         }
 
+        GameObject gameOverText = GameObject.Find("GameOverText");
+        SetTextVisibility(gameOverText, false);
+
         StartCoroutine(ShowGameScreenAfterDelay(2));
+    }
+
+    void SetTextVisibility(GameObject gameObject, bool isVisible)
+    {
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            gameObject.transform.GetChild(i).gameObject.GetComponent<Image>().enabled = isVisible;
+        }
     }
 
     void ShowGameScreen()
@@ -232,6 +252,13 @@ public class GameController : MonoBehaviour
                 StartCoroutine(RespawnShipAfterDelay(2));
             }
         }
+        else
+        {
+            gameState = GameState.PreGameOverScreen;
+            GameObject gameOverText = GameObject.Find("GameOverText");
+            SetTextVisibility(gameOverText, true);
+            StartCoroutine(ShowStartScreenAfterDelay(3.0f));
+        }
     }
 
     IEnumerator RespawnShipAfterDelay(float time)
@@ -247,6 +274,13 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ShowGameScreen();
+    }
+
+    IEnumerator ShowStartScreenAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        ShowStartScreen();
     }
 
     void SpawnUFO()
