@@ -55,6 +55,7 @@ public class BulletController : MonoBehaviour
 
     public void setDirection(Vector2 direction)
     {
+        direction.Normalize();
         this.lookDirection = direction;
     }
 

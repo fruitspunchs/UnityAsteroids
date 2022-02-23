@@ -2595,6 +2595,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
+    - target: {fileID: 1523852596818047466, guid: f0c705b4fef972141b1955555bd8a8c1, type: 3}
+      propertyPath: spawnUfoInterval
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 1523852596818047467, guid: f0c705b4fef972141b1955555bd8a8c1, type: 3}
       propertyPath: m_RootOrder
       value: 3

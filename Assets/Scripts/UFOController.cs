@@ -7,6 +7,10 @@ public class UFOController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     Vector2 moveDirection = new Vector2(-1, 0);
     float speed = 2.0f;
+    public GameObject ufoBullet;
+    float shootInterval = 0.5f;
+    float shootTimer = 0.5f;
+    float errorMargin = 45.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +22,26 @@ public class UFOController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shootTimer -= Time.deltaTime;
+        if (shootTimer <= 0)
+        {
+            shootTimer = shootInterval;
+
+            GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
+            if (playerShip != null)
+            {
+                Debug.Log("Shooting player");
+
+                Vector2 shipDirection = playerShip.transform.position - transform.position;
+                float error = Random.Range(-errorMargin, errorMargin);
+                shipDirection = Quaternion.Euler(0f, 0f, error) * shipDirection;
+
+                GameObject firedBullet = Instantiate(ufoBullet, transform.position, Quaternion.identity);
+                BulletController controller = firedBullet.GetComponent<BulletController>();
+
+                controller.setDirection(shipDirection);
+            }
+        }
     }
 
     public void SetXDirection(float x)

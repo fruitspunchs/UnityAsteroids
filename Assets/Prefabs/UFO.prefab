@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 363813495362764728}
   - component: {fileID: 363813495362764729}
   - component: {fileID: 363813495362764733}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: UFO
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fb96a1014ddb44caf7f1ee031208e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ufoBullet: {fileID: 4940380181550857707, guid: 30eeddaa38ba6d8478a93a4581d942bb, type: 3}
 --- !u!50 &363813495362764729
 Rigidbody2D:
   serializedVersion: 4

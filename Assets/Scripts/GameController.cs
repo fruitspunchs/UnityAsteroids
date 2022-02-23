@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
 
     public GameObject ufo;
     float spawnUfoTimer = 0.0f;
-    const float SPAWN_UFO_INTERVAL = 35.0f;
+    public float spawnUfoInterval = 35.0f;
 
     enum GameState
     {
@@ -203,7 +203,7 @@ public class GameController : MonoBehaviour
             waitingForNextRound = true;
             StartCoroutine(StartRoundAfterDelay(2));
         }
-        else if (spawnUfoTimer >= SPAWN_UFO_INTERVAL)
+        else if (spawnUfoTimer >= spawnUfoInterval)
         {
             SpawnUFO();
             spawnUfoTimer = 0;

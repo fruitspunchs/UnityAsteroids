@@ -32,7 +32,6 @@ public class ScoreDigitController : MonoBehaviour
     void Update()
     {
         int flipIndex = gameController.scoreString.Length - 1 - index;
-        Debug.Log(flipIndex);
         if (flipIndex >= 0)
         {
             int digit = (int)Char.GetNumericValue(gameController.scoreString[flipIndex]);
