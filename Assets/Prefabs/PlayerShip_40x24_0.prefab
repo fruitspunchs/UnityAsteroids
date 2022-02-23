@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5880776199339679305}
   - component: {fileID: 5880776199339679310}
   - component: {fileID: 5880776199339679311}
+  - component: {fileID: -5002138964730302299}
   m_Layer: 8
   m_Name: PlayerShip_40x24_0
   m_TagString: Player
@@ -149,3 +150,22 @@ PolygonCollider2D:
       - {x: -0.08122625, y: 0.06251743}
       - {x: -0.081455715, y: -0.04865118}
       - {x: -0.1433333, y: -0.11167619}
+--- !u!95 &-5002138964730302299
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880776199339679308}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e53ae11466d58754fb948092f55414fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

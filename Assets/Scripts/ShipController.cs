@@ -13,6 +13,7 @@ public class ShipController : MonoBehaviour
 
     public GameObject bullet;
     GameController gameController;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class ShipController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         GameObject game = GameObject.Find("Game");
         gameController = game.GetComponent<GameController>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,11 @@ public class ShipController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             velocity += lookDirection * acceleration * Time.deltaTime;
+            animator.SetBool("Thrust", true);
+        }
+        else
+        {
+            animator.SetBool("Thrust", false);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

@@ -36,8 +36,6 @@ public class UFOController : MonoBehaviour
             GameObject playerShip = GameObject.FindGameObjectWithTag("Player");
             if (playerShip != null)
             {
-                Debug.Log("Shooting player");
-
                 Vector2 shipDirection = playerShip.transform.position - transform.position;
                 float error = Random.Range(-errorMargin, errorMargin);
                 shipDirection = Quaternion.Euler(0f, 0f, error) * shipDirection;
