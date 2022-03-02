@@ -72,6 +72,8 @@ public class GameController : MonoBehaviour
         asteroidTypes = new GameObject[] { largeAsteroid0, largeAsteroid1, largeAsteroid2 };
 
         ShowStartScreen();
+
+        HighScores highScores = new HighScores();
     }
 
     void Update()
@@ -355,5 +357,49 @@ class SpawnRect
         float y = Random.Range(yMin, yMax);
 
         return new Vector2(x, y);
+    }
+}
+
+class HighScores
+{
+    public List<Score> scoreList = new List<Score>();
+
+    public void Add(string name, int score)
+    {
+        Score newScore = new Score(name, score);
+        scoreList.Add(newScore);
+
+        scoreList.Sort((x, y) => y.score.CompareTo(x.score));
+
+        int count = scoreList.Count;
+        if (count > 10)
+        {
+            scoreList.RemoveRange(10, count - 10);
+        }
+    }
+
+    public bool checkIfHighScore(int score)
+    {
+        foreach (Score i in scoreList)
+        {
+            if (score > i.score)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+public class Score
+{
+    public string name;
+    public int score;
+
+    public Score(string name, int score)
+    {
+        this.name = name;
+        this.score = score;
     }
 }
